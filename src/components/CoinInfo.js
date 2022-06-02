@@ -13,7 +13,7 @@ import SelectButton from './SelectButton';
 import { useParams } from 'react-router-dom';
 
 // eslint-disable-next-line no-empty-pattern
-const CoinInfo = ({}) => {
+const CoinInfo = (_) => {
   const [historicData, setHistoricData] = useState();
   const [days, setDays] = useState(1);
   const { id } = useParams();
