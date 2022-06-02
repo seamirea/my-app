@@ -11,6 +11,7 @@ import { Line } from 'react-chartjs-2';
 import { chartDays } from '../config/data';
 import SelectButton from './SelectButton';
 import { useParams } from 'react-router-dom';
+
 // eslint-disable-next-line no-empty-pattern
 const CoinInfo = ({}) => {
   const [historicData, setHistoricData] = useState();
