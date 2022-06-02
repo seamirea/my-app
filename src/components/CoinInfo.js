@@ -1,28 +1,33 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react' ;
-import { HistoricalChart } from '../config/api'; 
-import {createTheme, ThemeProvider,  makeStyles, CircularProgress} from "@material-ui/core";
+import React, { useEffect, useState } from 'react';
+import { HistoricalChart } from '../config/api';
+import {
+  createTheme,
+  ThemeProvider,
+  makeStyles,
+  CircularProgress,
+} from '@material-ui/core';
 import { Line } from 'react-chartjs-2';
-import { chartDays } from "../config/data";
-import SelectButton from "./SelectButton"; 
+import { chartDays } from '../config/data';
+import SelectButton from './SelectButton';
 import { useParams } from 'react-router-dom';
+// eslint-disable-next-line no-empty-pattern
 const CoinInfo = ({}) => {
-  const[historicData, setHistoricData] = useState();
-  const[days, setDays] = useState(1); 
+  const [historicData, setHistoricData] = useState();
+  const [days, setDays] = useState(1);
   const { id } = useParams();
- 
-  
-  const useStyles=makeStyles((theme) => ({
+
+  const useStyles = makeStyles((theme) => ({
     container: {
-      width: "75%",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
+      width: '75%',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
       marginTop: 25,
       padding: 40,
-      [theme.breakpoints.down("md")]: {
-        width: "100%",
+      [theme.breakpoints.down('md')]: {
+        width: '100%',
         marginTop: 0,
         padding: 20,
         paddingTop: 0,
@@ -38,28 +43,25 @@ const CoinInfo = ({}) => {
     setHistoricData(data.prices);
   };
 
+  useEffect(() => {
+    fetchHistoricData();
+  }, [days]);
 
+  const darkTheme = createTheme({
+    palette: {
+      primary: {
+        main: '#fff',
+      },
+      type: 'dark',
+    },
+  });
 
-useEffect(() => {
-  fetchHistoricData();
-}, [days]);
-
-const darkTheme = createTheme({
-palette:{
-  primary: {
-    main: "#fff",
-  },
-  type: "dark",
-},
-});
-
-
-return (
-<ThemeProvider theme={darkTheme}>
-<div className={classes.container}>
-{!historicData ? (
+  return (
+    <ThemeProvider theme={darkTheme}>
+      <div className={classes.container}>
+        {!historicData ? (
           <CircularProgress
-            style={{ color: "gold" }}
+            style={{ color: 'gold' }}
             size={250}
             thickness={1}
           />
@@ -80,7 +82,7 @@ return (
                   {
                     data: historicData.map((coin) => coin[1]),
                     label: `Price ( Past ${days} Days ) in USD`,
-                    borderColor: "#ea822b",
+                    borderColor: '#ea822b',
                   },
                 ],
               }}
@@ -94,10 +96,10 @@ return (
             />
             <div
               style={{
-                display: "flex",
+                display: 'flex',
                 marginTop: 20,
-                justifyContent: "space-around",
-                width: "100%",
+                justifyContent: 'space-around',
+                width: '100%',
               }}
             >
               {chartDays.map((day) => (
@@ -112,9 +114,9 @@ return (
             </div>
           </>
         )}
-</div>
+      </div>
     </ThemeProvider>
-);
+  );
 };
 
-export default CoinInfo
+export default CoinInfo;
